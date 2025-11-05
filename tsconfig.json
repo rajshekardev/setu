@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["bun"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "types": ["bun"]
   },
   "exclude": ["node_modules"]
 }
