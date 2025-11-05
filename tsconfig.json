@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "moduleResolution": "bundler",
+    "moduleResolution": "node16",
     "module": "esnext",
     "types": ["bun"],
     "baseUrl": ".",
