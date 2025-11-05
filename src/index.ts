@@ -1,6 +1,6 @@
 import { Elysia, Context } from "elysia";
-import { message } from "./test";
-import { auth } from "./lib/auth";
+import { message } from "~/test";
+import { auth } from "~/lib/auth";
 
 const betterAuthView = (context: Context) => {
   const BETTER_AUTH_ACCEPT_METHODS = ["POST", "GET"];
@@ -15,9 +15,5 @@ const app = new Elysia()
   .all("/api/auth/*", betterAuthView)
   .get("/", () => message)
   .get("/version", () => ver);
-
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
-);
 
 export default app;

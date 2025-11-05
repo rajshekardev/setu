@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "types": ["bun"]
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "types": ["bun"],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "exclude": ["node_modules"]
 }
