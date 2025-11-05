@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "esnext",
-    "types": ["bun"],
+    "moduleResolution": "bundler",
+    "module": "es2022",
+    "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
