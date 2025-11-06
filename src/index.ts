@@ -9,14 +9,7 @@ import { ZodToJsonSchemaConverter } from "@orpc/zod";
 import { cors } from "@elysiajs/cors";
 import { createContext } from "./orpc/context";
 
-const rpcHandler = new RPCHandler(appRouter, {
-  interceptors: [
-    onError((error) => {
-      console.error(error);
-    }),
-  ],
-});
-const apiHandler = new OpenAPIHandler(appRouter, {
+export const apiHandler = new OpenAPIHandler(appRouter, {
   plugins: [
     new OpenAPIReferencePlugin({
       schemaConverters: [new ZodToJsonSchemaConverter()],
@@ -29,36 +22,44 @@ const apiHandler = new OpenAPIHandler(appRouter, {
   ],
 });
 
-const app = new Elysia()
-  .use(
+export const rpcHandler = new RPCHandler(appRouter, {
+  interceptors: [
+    onError((error) => {
+      console.error(error);
+    }),
+  ],
+});
+
+const app = new Elysia();
+  app.use(
     cors({
       origin: process.env.CORS_ORIGIN || "",
       methods: ["GET", "POST", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true,
     }),
-  )
-  .all("/api/auth/*", async (context) => {
+  );
+  app.all("/api/auth/*", async (context) => {
     const { request, status } = context;
     if (["POST", "GET"].includes(request.method)) {
       return auth.handler(request);
     }
     return status(405);
-  })
-  .all("/rpc*", async (context) => {
+  });
+  app.all("/rpc*", async (context) => {
     const { response } = await rpcHandler.handle(context.request, {
       prefix: "/rpc",
       context: await createContext({ context }),
     });
     return response ?? new Response("Not Found", { status: 404 });
-  })
-  .all("/api*", async (context) => {
+  });
+  app.all("/api*", async (context) => {
     const { response } = await apiHandler.handle(context.request, {
       prefix: "/api-reference",
       context: await createContext({ context }),
     });
     return response ?? new Response("Not Found", { status: 404 });
-  })
-  .get("/", () => "OK");
+  });
+  app.get("/", () => "OK");
 
 export default app;

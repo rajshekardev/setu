@@ -1,5 +1,5 @@
 import type { Context as ElysiaContext } from "elysia";
-import { auth } from "@/lib/auth";
+import { auth } from "../lib/auth";
 
 export type CreateContextOptions = {
   context: ElysiaContext;
