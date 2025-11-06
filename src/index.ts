@@ -1,13 +1,13 @@
 import { Elysia } from "elysia";
 import { auth } from "@/lib/auth";
 import { RPCHandler } from "@orpc/server/fetch";
-import { appRouter } from "./api/routers";
+import { appRouter } from "./orpc/routers";
 import { onError } from "@orpc/server";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
 import { OpenAPIReferencePlugin } from "@orpc/openapi/plugins";
 import { ZodToJsonSchemaConverter } from "@orpc/zod";
 import { cors } from "@elysiajs/cors";
-import { createContext } from "./api/context";
+import { createContext } from "./orpc/context";
 
 const rpcHandler = new RPCHandler(appRouter, {
   interceptors: [
