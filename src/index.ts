@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { auth } from "@/lib/auth";
+import { auth } from "./lib/auth";
 import { RPCHandler } from "@orpc/server/fetch";
 import { appRouter } from "./orpc/routers";
 import { onError } from "@orpc/server";
